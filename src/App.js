@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Map from './components/map.js'
+import Script from 'react-load-script'
 
 class App extends Component {
     render() {
         return (
             <div className="App" id="layout">
               <header className="App-header pure-u-1">West Philly Coffee Shops</header>
+		<Map />
               <a href="#menu" id="menuLink" className="menu-link">
 		<span></span>
 	      </a>
@@ -23,7 +26,7 @@ class App extends Component {
                   </ul>
                 </div>
               </div>
-            </div>
+         </div>
         );
     }
 }
