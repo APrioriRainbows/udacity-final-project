@@ -1,4 +1,4 @@
-const ALL_ITEMS = [
+export default [
     {"address_components" : [
         {
             "long_name" : "4426",
