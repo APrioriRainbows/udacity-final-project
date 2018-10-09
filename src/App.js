@@ -3,26 +3,24 @@ import logo from './logo.svg';
 import './App.css';
 import Map from './components/map.js'
 import Script from 'react-load-script'
+import ALL_LOCATIONS from './locations'
+
 class App extends Component {
+    constructor(props){
+	super(props)
+    }
     state = {
-	AllLocations: [
-	    //The Green Line Cafe
-	    {location: {}, googleID:'ChIJBQodP_DGxokR7BU-LHhMz7w'},
-	    //Jezebel\'s Studio
-	    {location: {}, googleID:'ChIJLxn5DfDGxokRrhtvTyksLPo'},
-	    //Reanimator Coffee 
-	    {location: {}, googleID:'ChIJFTrn7e7GxokR-hMwClmetUU'},
-	    //Satellite Cafe 
-	    {location: {}, googleID:'ChIJT8YkwurGxokRrG38CigmHRU'},
-	    //Saxby\'s'
-	    {location: {}, googleID:'ChIJKVKKvvfGxokRVsWjTa4tMqk'},
-	    //Earthen Cup Cafe'
-	    {location: {}, googleID:'ChIJ7ZuY5vHGxokRNt9zUNldZb4'},	    
-	],
+	AllLocations: [],
 	FilteredLocation: []
     }
+
     filterLocation = () => {
     }
+
+    componentDidMount(){
+    	this.setState({AllLocations: ALL_LOCATIONS})
+    }
+
     render() {
         return (
             <div className="App" id="layout">

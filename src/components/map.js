@@ -12,19 +12,20 @@ export default class Map extends Component {
     handleScriptLoad() {
         this.map = new window.google.maps.Map(document.getElementById('map'), {
             zoom: 12,
-            center: {lat: 37.7749300, lng: -122.4194200}
         });
 
         const locations = this.props.locations;
-        const locationIDs =locations.map(location => location.googleID);
-        this.state.LocationList.map(location => {
+        const bounds = new window.google.maps.LatLngBounds();
+        locations.map(item => {
             const marker = new window.google.maps.Marker(
-                { position: location.position,
+                { position: item.geometry.location,
                   map: this.map,
-                  title: location.title }
-            );
-            return marker
+                  title: item.name }
+            )
+            bounds.extend(item.geometry.location);
+            return marker;
         });
+        this.map.fitBounds(bounds);
     }
     render(){
         const key = `https://maps.googleapis.com/maps/api/js?key=${MAPS_API_KEY}&libraries=places`
