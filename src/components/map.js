@@ -13,15 +13,19 @@ export default class Map extends Component {
         this.map = new window.google.maps.Map(document.getElementById('map'), {
             zoom: 12,
         });
-
         const locations = this.props.locations;
         const bounds = new window.google.maps.LatLngBounds();
+        const infowindow = new window.google.maps.InfoWindow();
         locations.map(item => {
             const marker = new window.google.maps.Marker(
                 { position: item.geometry.location,
                   map: this.map,
                   title: item.name }
-            )
+            );
+            marker.addListener('click', function(e){
+                infowindow.setContent(`${item.name}<br/>${item.formatted_address}`)
+                infowindow.open(this.map, marker);
+            });
             bounds.extend(item.geometry.location);
             return marker;
         });
