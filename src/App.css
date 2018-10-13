@@ -1,3 +1,8 @@
+body {
+    --menu-width: 275px;
+    --anti-menu-width: -275px;
+}
+
 #map {
     height: 600px;
 }
@@ -17,6 +22,15 @@ body {
 .pure-img-responsive {
     max-width: 100%;
     height: auto;
+}
+
+.pure-button {
+    margin: 5px;
+}
+
+input {
+    margin: 5px;
+    
 }
 
 /*
@@ -40,14 +54,14 @@ This is the parent `<div>` that contains the menu and the content area.
     left: 0;
     padding-left: 0;
 }
-    #layout.active #menu {
-        left: 150px;
-        width: 150px;
-    }
+#layout.active #menu {
+    left: var(--menu-width);
+    width: var(--menu-width);
+}
 
-    #layout.active .menu-link {
-        left: 150px;
-    }
+#layout.active .menu-link {
+    left: var(--menu-width);
+}
 
 /*
 The `#menu` `<div>` is the parent `<div>` that contains the `.pure-menu` that
@@ -55,8 +69,8 @@ appears on the left side of the page.
 */
 
 #menu {
-    margin-left: -150px; /* "#menu" width */
-    width: 150px;
+    margin-left: var(--anti-menu-width); /* "#menu" width */
+    width: var(--menu-width);
     position: fixed;
     top: 0;
     left: 0;
@@ -191,21 +205,21 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     }
 
     #layout {
-        padding-left: 150px; /* left col width "#menu" */
+        padding-left: var(--menu-width); /* left col width "#menu" */
         left: 0;
     }
     #menu {
-        left: 150px;
+        left: var(--menu-width);
     }
 
     .menu-link {
         position: fixed;
-        left: 150px;
+        left: var(--menu-width);
         display: none;
     }
 
     #layout.active .menu-link {
-        left: 150px;
+        left: var(--menu-width);
     }
 }
 
@@ -218,6 +232,6 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     */
     #layout.active {
         position: relative;
-        left: 150px;
+        left: var(--menu-width);
     }
 }
