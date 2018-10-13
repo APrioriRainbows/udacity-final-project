@@ -31,7 +31,20 @@ export default class Map extends Component {
         });
         this.map.fitBounds(bounds);
     }
+    toggleMarkers() {
+	if (!this.markers) { return }
+	// for each marker
+	this.markers.forEach(marker => marker.setMap(null))
+	const visible_markers = []
+	this.props.locations.forEach(location => {
+	    this.markers.forEach(marker => {
+		    if(marker.title === location.name){visible_markers.push(marker)}
+	    })
+	})
+	visible_markers.forEach(marker => marker.setMap(this.map))	
+    }
     render(){
+	this.toggleMarkers();
         const key = `https://maps.googleapis.com/maps/api/js?key=${MAPS_API_KEY}&libraries=places`
             return(
                 <div className="pure-u-1">
