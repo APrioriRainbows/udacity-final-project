@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MAPS_API_KEY from '../keys.js';
 import Script from 'react-load-script';
-
+import cmarker from '../coffeeMarker.png'
 export default class Map extends Component {
     constructor(props){
 	super(props);
@@ -16,11 +16,17 @@ export default class Map extends Component {
         const locations = this.props.locations;
         const bounds = new window.google.maps.LatLngBounds();
         const infowindow = new window.google.maps.InfoWindow();
-        locations.map(item => {
+	const markerIMG = {
+	    url: cmarker,
+	    scaledSize: new window.google.maps.Size(35, 45)
+	}
+        this.markers = locations.map(item => {
             const marker = new window.google.maps.Marker(
                 { position: item.geometry.location,
                   map: this.map,
-                  title: item.name }
+                  title: item.name,
+		  icon: markerIMG
+		}
             );
             marker.addListener('click', function(e){
                 infowindow.setContent(`${item.name}<br/>${item.formatted_address}`)
