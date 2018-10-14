@@ -11,7 +11,8 @@ class App extends Component {
     }
     state = {
 	AllLocations: [],
-	FilteredLocations: []
+	FilteredLocations: [],
+        ActiveLocation:''
     }
 
     filterLocation = () => {
@@ -27,17 +28,22 @@ class App extends Component {
         let val = document.querySelector('input').value.trim().toLowerCase();
 //        if (val === ''){return}
         const AllLocations = this.state.AllLocations;
-        console.log(val)
+//        console.log(val)
         let FilteredLocations = AllLocations.filter(location => location.name.trim().toLowerCase().includes(val));
         this.setState({FilteredLocations: FilteredLocations});
     }
-
+    setTarget(e){
+//        e.preventDefault();
+        const activeLocation = e.target.innerHTML;
+        this.setState({ActiveLocation:activeLocation});
+        console.log(this.state.ActiveLocation)
+    }
     render() {
         const FilteredLocations = this.state.FilteredLocations
         return (
             <div className="App" id="layout">
               <header className="App-header pure-u-1">West Philly Coffee Shops</header>
-		<Map locations={this.state.FilteredLocations}/>
+		<Map locations={this.state.FilteredLocations} target={this.state.ActiveLocation}/>
               <a href="#menu" id="menuLink" className="menu-link">
 		<span></span>
 	      </a>
@@ -50,7 +56,7 @@ class App extends Component {
                   </form>
                   <ul className="pure-menu-list">
 		    {FilteredLocations.map(location =>
-                        <li className="pure-menu-item" key={location.name}><a href="#" className="pure-menu-link">{location.name}</a></li>
+                        <li className="pure-menu-item" key={location.name}><a onClick={e => this.setTarget(e)} className="pure-menu-link">{location.name}</a></li>
                     )
                     }
                   </ul>

@@ -47,9 +47,29 @@ export default class Map extends Component {
 		    if(marker.title === location.name){visible_markers.push(marker)}
 	    })
 	})
-	visible_markers.forEach(marker => marker.setMap(this.map))	
+    }
+    bounceMarker() {
+        const clickedListItem = this.props.target;
+	console.log('target',this.props.target);
+	if (!this.markers || !clickedListItem) { return }
+        this.markers.forEach(marker => {
+            if(marker.title == clickedListItem) {
+		this.clickMarker(marker)
+	    }
+	})
+    }
+    clickMarker(marker) {
+	this.markers.forEach(marker => {
+	    marker.map && marker.setAnimation(null);
+	    marker.infowindow.close()
+	});
+	const location = marker.location;
+	marker.setAnimation(window.google.maps.Animation.BOUNCE);
+	marker.infowindow.setContent(`${location.name}<br/>${location.formatted_address}`)
+        marker.infowindow.open(this.map, marker);
     }
     render(){
+	this.bounceMarker();
 	this.toggleMarkers();
         const key = `https://maps.googleapis.com/maps/api/js?key=${MAPS_API_KEY}&libraries=places`
             return(
