@@ -3,6 +3,19 @@ body {
     --anti-menu-width: -275px;
 }
 
+.App-header {
+    font-family: 'Pacifico', cursive;
+    color: #72583C;
+    font-size: 2em;
+    text-align: center;
+    padding: 10px 0;
+    background-color: #DEDDDE;
+}
+
+li {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
 #map {
     height: 600px;
 }
@@ -10,10 +23,6 @@ body {
     width: 100%;
 }
 
-.App-header {
-    color: blue;
-    text-align: center;
-}
 
 body {
     color: #777;
@@ -30,6 +39,7 @@ body {
 
 input {
     margin: 5px;
+    border: white 2px solid;
     
 }
 
@@ -76,7 +86,7 @@ appears on the left side of the page.
     left: 0;
     bottom: 0;
     z-index: 1000; /* so the menu or its navicon stays above all content */
-    background: #191818;
+    background: #72583C;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
@@ -84,7 +94,7 @@ appears on the left side of the page.
     All anchors inside the menu should be styled like this.
     */
     #menu a {
-        color: #999;
+        color: white;
         border: none;
         padding: 0.6em 0 0.6em 0.6em;
     }
