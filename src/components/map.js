@@ -37,13 +37,15 @@ export default class Map extends Component {
     }
     toggleMarkers() {
 	if (!this.markers) { return }
-	// for each marker
-	this.markers.forEach(marker => marker.setMap(null))
-	const visible_markers = []
-	this.props.locations.forEach(location => {
-	    this.markers.forEach(marker => {
-		    if(marker.title === location.name){visible_markers.push(marker)}
-	    })
+	this.markers.forEach(marker => {
+	    marker.hidden = this.props.locations.indexOf(marker.location) == -1;
+	    if (marker.hidden) {
+		marker.infowindow.close();
+		marker.setMap(null);
+	    } else {
+		// if it is not on the map, add it to the map
+		!marker.map && marker.setMap(this.map)
+	    }
 	})
     }
     bounceMarker() {
