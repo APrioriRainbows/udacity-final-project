@@ -15,23 +15,21 @@ export default class Map extends Component {
         });
         const locations = this.props.locations;
         const bounds = new window.google.maps.LatLngBounds();
-        const infowindow = new window.google.maps.InfoWindow();
 	const markerIMG = {
 	    url: cmarker,
 	    scaledSize: new window.google.maps.Size(35, 45)
 	}
         this.markers = locations.map(item => {
-            const marker = new window.google.maps.Marker(
+            let marker = new window.google.maps.Marker(
                 { position: item.geometry.location,
                   map: this.map,
                   title: item.name,
 		  icon: markerIMG
 		}
             );
-            marker.addListener('click', function(e){
-                infowindow.setContent(`${item.name}<br/>${item.formatted_address}`)
-                infowindow.open(this.map, marker);
-            });
+            marker.infowindow = new window.google.maps.InfoWindow();
+	    marker.location = item;
+	    marker.addListener("click", () => this.clickMarker(marker))
             bounds.extend(item.geometry.location);
             return marker;
         });
