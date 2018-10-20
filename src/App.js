@@ -20,8 +20,8 @@ class App extends Component {
         this.setState({FilteredLocations: ALL_LOCATIONS})
 
     }
-//this function takes in query string and filters down all available locations to match query string.
-//sets a state variable with that array of locations to be used elsewhere
+    //this function takes in query string and filters down all available locations to match query string.
+    //sets a state variable with that array of locations to be used elsewhere
     filterLocations(e){
         e.preventDefault();
         let val = document.querySelector('input').value.trim().toLowerCase();
@@ -29,7 +29,7 @@ class App extends Component {
         let FilteredLocations = AllLocations.filter(location => location.name.trim().toLowerCase().includes(val));
         this.setState({FilteredLocations: FilteredLocations});
     }
-//when you click an item it sets a state on the app for ActiveLocation
+    //when you click an item it sets a state on the app for ActiveLocation
     setTarget(location){
         console.log(location);
         const activeLocation = location;
