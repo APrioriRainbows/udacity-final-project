@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Map from './components/map.js'
-import Script from 'react-load-script'
-import ALL_LOCATIONS from './locations'
+import Map from './components/map.js';
+import ALL_LOCATIONS from './locations';
+import fourSquareLocationData from './foursquare';
+import * as keys from "./keys";
 
 class App extends Component {
     constructor(props){
@@ -11,6 +11,7 @@ class App extends Component {
     }
     state = {
 	AllLocations: [],
+        // FourSquareLocations: [],
 	FilteredLocations: [],
         ActiveLocation:''
     }
@@ -18,7 +19,22 @@ class App extends Component {
     componentDidMount(){
     	this.setState({AllLocations: ALL_LOCATIONS})
         this.setState({FilteredLocations: ALL_LOCATIONS})
-
+        for (let fsq of fourSquareLocationData) {
+            const venueId = fsq.venueId;
+            //takes in client id and client secret for the foursquare api
+            const qs = `&client_id=${keys.FS_CLIENT_ID}&client_secret=${keys.FS_CLIENT_SECRET}`
+            const v = "&v=20181020"
+            const url = `https://api.foursquare.com/v2/venues/${venueId}/photos?limit=1`+qs+v;
+            fetch(url).then((response) => response.json()).then(json => {
+                for (let location of this.state.AllLocations) {
+                    if (location.name == fsq.venueName) {
+                        let photo = json.response.photos.items[0];
+                        location.photoURL = `${photo.prefix}200x200${photo.suffix}`;
+                    }
+                }
+            })
+                .catch(err => console.error('Caught error: ', err));
+        }
     }
     //this function takes in query string and filters down all available locations to match query string.
     //sets a state variable with that array of locations to be used elsewhere

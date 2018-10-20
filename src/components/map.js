@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MAPS_API_KEY from '../keys.js';
+import { MAPS_API_KEY } from '../keys.js';
 import Script from 'react-load-script';
 import cmarker from '../coffeeMarker.png'
 export default class Map extends Component {
@@ -57,8 +57,7 @@ export default class Map extends Component {
     highlightMarker() {
 	if (!this.markers) { return }
         const activeLocation = this.props.target;
-	const activeMarker = activeLocation.marker
-
+	const activeMarker = activeLocation.marker        
 	//if the marker clicked is a new, different marker apply highlight
 	if (this.activeMarker !== activeMarker) {
 	    this.activeMarker = activeMarker;
