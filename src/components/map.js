@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { MAPS_API_KEY } from '../keys.js';
 import Script from 'react-load-script';
-import cmarker from '../coffeeMarker.png'
+import cmarker from '../coffeeMarker.png';
+
 export default class Map extends Component {
     constructor(props){
 	super(props);
@@ -11,14 +12,14 @@ export default class Map extends Component {
     }
     handleScriptLoad() {
         this.map = new window.google.maps.Map(document.getElementById('map'), {
-            zoom: 12,
+            zoom: 12
         });
         const locations = this.props.locations;
         const bounds = new window.google.maps.LatLngBounds();
 	const markerIMG = {
 	    url: cmarker,
 	    scaledSize: new window.google.maps.Size(35, 45)
-	}
+	};
         this.markers = locations.map(item => {
             let marker = new window.google.maps.Marker(
                 { position: item.geometry.location,
@@ -30,7 +31,7 @@ export default class Map extends Component {
             marker.infowindow = new window.google.maps.InfoWindow();
 	    marker.location = item;
 	    item.marker = marker;
-	    marker.addListener("click", (_e) => this.props.mapTarget(marker.location))
+	    marker.addListener("click", (_e) => this.props.mapTarget(marker.location));
             bounds.extend(item.geometry.location);
             return marker;
         });
@@ -48,43 +49,39 @@ export default class Map extends Component {
 		// if it is not on the map, add it to the map
 		!marker.map && marker.setMap(this.map)
 	    }
-	})
-    }
-    clickMarker(e, location) {
-	// pass the 
-
+	});
     }
     highlightMarker() {
 	if (!this.markers) { return }
         const activeLocation = this.props.target;
-	const activeMarker = activeLocation.marker        
+	const activeMarker = activeLocation.marker;
 	//if the marker clicked is a new, different marker apply highlight
 	if (this.activeMarker !== activeMarker) {
 	    this.activeMarker = activeMarker;
 	    this.markers.forEach(marker => {
 		marker.map && marker.setAnimation(null);
-		marker.infowindow.close()
+		marker.infowindow.close();
             });
             activeMarker.setAnimation(window.google.maps.Animation.BOUNCE);
-            activeMarker.infowindow.setContent(`${activeLocation.name}<br/>${activeLocation.formatted_address}`)
+            activeMarker.infowindow.setContent(`${activeLocation.name}<br/>${activeLocation.formatted_address}`);
             activeMarker.infowindow.open(this.map, activeMarker);
 	}
     }
     render(){
 	this.highlightMarker();
 	this.filterMarkers();
-        const mapsAPICall = `https://maps.googleapis.com/maps/api/js?key=${MAPS_API_KEY}&libraries=places`
+        const mapsAPICall = `https://maps.googleapis.com/maps/api/js?key=${MAPS_API_KEY}&libraries=places`;
         return(
             <div className="pure-u-1">
-                  <Script
+              <Script
             url={mapsAPICall}
             onLoad={this.handleScriptLoad.bind(this)}
-                />
-                <div id="map-container" className="pure-u-1 pure-img-responsive">
+              />
+              <div id="map-container" className="pure-u-1 pure-img-responsive">
                 <div id="map" className="pure-u-1">
                 </div>
-                </div>
-                </div>	
-        )
+              </div>
+            </div>
+        );
     }
 }
