@@ -73,18 +73,18 @@ export default class Map extends Component {
     render(){
 	this.highlightMarker();
 	this.filterMarkers();
-        const key = `https://maps.googleapis.com/maps/api/js?key=${MAPS_API_KEY}&libraries=places`
-            return(
-                <div className="pure-u-1">
+        const mapsAPICall = `https://maps.googleapis.com/maps/api/js?key=${MAPS_API_KEY}&libraries=places`
+        return(
+            <div className="pure-u-1">
                   <Script
-            url={key}
+            url={mapsAPICall}
             onLoad={this.handleScriptLoad.bind(this)}
-                  />
-                  <div id="map-container" className="pure-u-1 pure-img-responsive">
-                    <div id="map" className="pure-u-1">
-                    </div>
-                  </div>
+                />
+                <div id="map-container" className="pure-u-1 pure-img-responsive">
+                <div id="map" className="pure-u-1">
+                </div>
+                </div>
                 </div>	
-            )
-        }
+        )
+    }
 }

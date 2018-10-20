@@ -58,7 +58,7 @@ class App extends Component {
         return (
             <div className="App" id="layout">
               <header className="App-header pure-u-1">West Philly Coffee Shops</header>
-		<Map locations={FilteredLocations} target={ActiveLocation} mapTarget={location => this.setTarget(location)}/>
+	      <Map locations={FilteredLocations} target={ActiveLocation} mapTarget={location => this.setTarget(location)}/>
               <a href="#menu" id="menuLink" className="menu-link">
 		<span></span>
 	      </a>
@@ -71,13 +71,13 @@ class App extends Component {
                   </form>
                   <ul className="pure-menu-list">
 		    {FilteredLocations.map(location =>
-                        <li className="pure-menu-item" key={location.name}><a onClick={_e => this.setTarget(location)} className="pure-menu-link">{location.name}</a></li>
-                    )
+                                           <li className="pure-menu-item" key={location.name}><a onClick={_e => this.setTarget(location)} className="pure-menu-link">{location.name}</a></li>
+                                          )
                     }
                   </ul>
                 </div>
               </div>
-         </div>
+            </div>
         );
     }
 }
