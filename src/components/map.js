@@ -29,13 +29,15 @@ export default class Map extends Component {
             );
             marker.infowindow = new window.google.maps.InfoWindow();
 	    marker.location = item;
-	    marker.addListener("click", () => this.clickMarker(marker))
+	    item.marker = marker;
+	    marker.addListener("click", (_e) => this.props.mapTarget(marker.location))
             bounds.extend(item.geometry.location);
             return marker;
         });
         this.map.fitBounds(bounds);
     }
-    toggleMarkers() {
+    filterMarkers() {
+	// this will reset markers on render so that they match the filtered location list
 	if (!this.markers) { return }
 	this.markers.forEach(marker => {
 	    marker.hidden = this.props.locations.indexOf(marker.location) == -1;
@@ -48,29 +50,30 @@ export default class Map extends Component {
 	    }
 	})
     }
-    bounceMarker() {
-        const clickedListItem = this.props.target;
-	console.log('target',this.props.target);
-	if (!this.markers || !clickedListItem) { return }
-        this.markers.forEach(marker => {
-            if(marker.title == clickedListItem) {
-		this.clickMarker(marker)
-	    }
-	})
+    clickMarker(e, location) {
+	// pass the 
+
     }
-    clickMarker(marker) {
-	this.markers.forEach(marker => {
-	    marker.map && marker.setAnimation(null);
-	    marker.infowindow.close()
-	});
-	const location = marker.location;
-	marker.setAnimation(window.google.maps.Animation.BOUNCE);
-	marker.infowindow.setContent(`${location.name}<br/>${location.formatted_address}`)
-        marker.infowindow.open(this.map, marker);
+    highlightMarker() {
+	if (!this.markers) { return }
+        const activeLocation = this.props.target;
+	const activeMarker = activeLocation.marker
+
+	//if the marker clicked is a new, different marker apply highlight
+	if (this.activeMarker !== activeMarker) {
+	    this.activeMarker = activeMarker;
+	    this.markers.forEach(marker => {
+		marker.map && marker.setAnimation(null);
+		marker.infowindow.close()
+            });
+            activeMarker.setAnimation(window.google.maps.Animation.BOUNCE);
+            activeMarker.infowindow.setContent(`${activeLocation.name}<br/>${activeLocation.formatted_address}`)
+            activeMarker.infowindow.open(this.map, activeMarker);
+	}
     }
     render(){
-	this.bounceMarker();
-	this.toggleMarkers();
+	this.highlightMarker();
+	this.filterMarkers();
         const key = `https://maps.googleapis.com/maps/api/js?key=${MAPS_API_KEY}&libraries=places`
             return(
                 <div className="pure-u-1">

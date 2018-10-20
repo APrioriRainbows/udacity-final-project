@@ -15,35 +15,34 @@ class App extends Component {
         ActiveLocation:''
     }
 
-    filterLocation = () => {
-    }
-
     componentDidMount(){
     	this.setState({AllLocations: ALL_LOCATIONS})
         this.setState({FilteredLocations: ALL_LOCATIONS})
 
     }
+//this function takes in query string and filters down all available locations to match query string.
+//sets a state variable with that array of locations to be used elsewhere
     filterLocations(e){
         e.preventDefault();
         let val = document.querySelector('input').value.trim().toLowerCase();
-//        if (val === ''){return}
         const AllLocations = this.state.AllLocations;
-//        console.log(val)
         let FilteredLocations = AllLocations.filter(location => location.name.trim().toLowerCase().includes(val));
         this.setState({FilteredLocations: FilteredLocations});
     }
-    setTarget(e){
-//        e.preventDefault();
-        const activeLocation = e.target.innerHTML;
+//when you click an item it sets a state on the app for ActiveLocation
+    setTarget(location){
+        console.log(location);
+        const activeLocation = location;
+        console.log(activeLocation);
         this.setState({ActiveLocation:activeLocation});
-        console.log(this.state.ActiveLocation)
     }
     render() {
-        const FilteredLocations = this.state.FilteredLocations
+        const FilteredLocations = this.state.FilteredLocations;
+        const ActiveLocation = this.state.ActiveLocation;
         return (
             <div className="App" id="layout">
               <header className="App-header pure-u-1">West Philly Coffee Shops</header>
-		<Map locations={this.state.FilteredLocations} target={this.state.ActiveLocation}/>
+		<Map locations={FilteredLocations} target={ActiveLocation} mapTarget={location => this.setTarget(location)}/>
               <a href="#menu" id="menuLink" className="menu-link">
 		<span></span>
 	      </a>
@@ -56,7 +55,7 @@ class App extends Component {
                   </form>
                   <ul className="pure-menu-list">
 		    {FilteredLocations.map(location =>
-                        <li className="pure-menu-item" key={location.name}><a onClick={e => this.setTarget(e)} className="pure-menu-link">{location.name}</a></li>
+                        <li className="pure-menu-item" key={location.name}><a onClick={_e => this.setTarget(location)} className="pure-menu-link">{location.name}</a></li>
                     )
                     }
                   </ul>
