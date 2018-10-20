@@ -11,7 +11,6 @@ class App extends Component {
     }
     state = {
 	AllLocations: [],
-        // FourSquareLocations: [],
 	FilteredLocations: [],
         ActiveLocation:''
     }
@@ -28,8 +27,14 @@ class App extends Component {
             fetch(url).then((response) => response.json()).then(json => {
                 for (let location of this.state.AllLocations) {
                     if (location.name == fsq.venueName) {
-                        let photo = json.response.photos.items[0];
-                        location.photoURL = `${photo.prefix}200x200${photo.suffix}`;
+                        let photo = json.response.photos.items[0] || undefined;
+                        console.log(photo);
+                        if(photo){
+                            location.photoURL = `${photo.prefix}200x200${photo.suffix}`;
+                            console.log(location.photoURL);
+                        }else{
+                            location.photoURL = 'https://static1.squarespace.com/static/5989afe4db29d6b9e128065d/t/59945228be42d66fd571dc25/1502892599674/'
+                        }
                     }
                 }
             })
