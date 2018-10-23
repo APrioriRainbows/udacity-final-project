@@ -6,9 +6,6 @@ import fourSquareLocationData from './foursquare';
 import * as keys from "./keys";
 
 class App extends Component {
-    constructor(props){
-	super(props)
-    }
     state = {
 	AllLocations: [],
 	FilteredLocations: [],
@@ -16,24 +13,22 @@ class App extends Component {
     }
 
     componentDidMount(){
-    	this.setState({AllLocations: ALL_LOCATIONS})
-        this.setState({FilteredLocations: ALL_LOCATIONS})
+    	this.setState({AllLocations: ALL_LOCATIONS});
+        this.setState({FilteredLocations: ALL_LOCATIONS});
         for (let fsq of fourSquareLocationData) {
             const venueId = fsq.venueId;
-            //takes in client id and client secret for the foursquare api
-            const qs = `&client_id=${keys.FS_CLIENT_ID}&client_secret=${keys.FS_CLIENT_SECRET}`
-            const v = "&v=20181020"
+            //takes in client id and client secret for the foursquare api. PLEASE INSERT YOUR OWN IF REVIEWING.
+            const qs = `&client_id=${keys.FS_CLIENT_ID}&client_secret=${keys.FS_CLIENT_SECRET}`;
+            const v = "&v=20181020";
             const url = `https://api.foursquare.com/v2/venues/${venueId}/photos?limit=1`+qs+v;
             fetch(url).then((response) => response.json()).then(json => {
                 for (let location of this.state.AllLocations) {
                     if (location.name == fsq.venueName) {
                         let photo = json.response.photos.items[0] || undefined;
-                        console.log(photo);
                         if(photo){
                             location.photoURL = `${photo.prefix}200x200${photo.suffix}`;
-                            console.log(location.photoURL);
                         }else{
-                            location.photoURL = 'https://static1.squarespace.com/static/5989afe4db29d6b9e128065d/t/59945228be42d66fd571dc25/1502892599674/'
+                            location.photoURL = 'https://static1.squarespace.com/static/5989afe4db29d6b9e128065d/t/59945228be42d66fd571dc25/1502892599674/';
                         }
                     }
                 }

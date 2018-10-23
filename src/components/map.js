@@ -4,12 +4,10 @@ import Script from 'react-load-script';
 import cmarker from '../coffeeMarker.png';
 
 export default class Map extends Component {
-    constructor(props){
-	super(props);
-    }
     state = {
         LocationList: []
     }
+
     handleScriptLoad() {
         this.map = new window.google.maps.Map(document.getElementById('map'), {
             zoom: 12
@@ -37,6 +35,7 @@ export default class Map extends Component {
         });
         this.map.fitBounds(bounds);
     }
+
     filterMarkers() {
 	// this will reset markers on render so that they match the filtered location list
 	if (!this.markers) { return }
@@ -51,6 +50,7 @@ export default class Map extends Component {
 	    }
 	});
     }
+
     highlightMarker() {
 	if (!this.markers) { return }
         const activeLocation = this.props.target;
@@ -77,7 +77,7 @@ export default class Map extends Component {
             url={mapsAPICall}
             onLoad={this.handleScriptLoad.bind(this)}
               />
-              <div id="map-container" className="pure-u-1 pure-img-responsive">
+              <div id="map-container" className="pure-u-1">
                 <div id="map" className="pure-u-1">
                 </div>
               </div>
