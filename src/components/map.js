@@ -63,7 +63,7 @@ export default class Map extends Component {
 		marker.infowindow.close();
             });
             activeMarker.setAnimation(window.google.maps.Animation.BOUNCE);
-            activeMarker.infowindow.setContent(`${activeLocation.name}<br/>${activeLocation.formatted_address}`);
+            activeMarker.infowindow.setContent(`${activeLocation.name}<br/>${activeLocation.formatted_address}<br/><img src="${activeLocation.photoURL}" alt=${activeLocation.name}/>`);
             activeMarker.infowindow.open(this.map, activeMarker);
 	}
     }

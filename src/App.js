@@ -52,26 +52,30 @@ class App extends Component {
         console.log(activeLocation);
         this.setState({ActiveLocation:activeLocation});
     }
+    toggleSearch(){
+        const layout = document.getElementById('layout');
+        layout.classList.toggle('active');
+    }
     render() {
         const FilteredLocations = this.state.FilteredLocations;
         const ActiveLocation = this.state.ActiveLocation;
         return (
             <div className="App" id="layout">
               <header className="App-header pure-u-1">West Philly Coffee Shops</header>
-	      <Map locations={FilteredLocations} target={ActiveLocation} mapTarget={location => this.setTarget(location)}/>
-              <a href="#menu" id="menuLink" className="menu-link">
+	      <Map aria-label="map of coffee shop locations" locations={FilteredLocations} target={ActiveLocation} mapTarget={location => this.setTarget(location)} role="application"/>
+              <a href="#menu" id="menuLink" className="menu-link" aria-hidden="true" onClick={this.toggleSearch}>
 		<span></span>
 	      </a>
               <div id="menu" className="">
                 <div className="pure-menu">
-		  <form className="pure-form">
+		  <form className="pure-form" role="search">
 		    <fieldset>
-		      <input type="text" className="pure-input-rounded" placeholder="Filter locations" onChange={e => this.filterLocations(e)}/>
+		      <input role="search" type="text" aria-label="search text" aria-live="polite" className="pure-input-rounded" placeholder="Filter locations" onChange={e => this.filterLocations(e)}/>
 		    </fieldset>
                   </form>
-                  <ul className="pure-menu-list">
+                  <ul className="pure-menu-list" aria-live="polite" id="locations">
 		    {FilteredLocations.map(location =>
-                                           <li className="pure-menu-item" key={location.name}><a onClick={_e => this.setTarget(location)} className="pure-menu-link">{location.name}</a></li>
+                                           <li className="pure-menu-item" aria-describedby="locations" key={location.name} tabIndex="0"><a onClick={_e => this.setTarget(location)} className="pure-menu-link"aria-labelledby={location.name}>{location.name}</a></li>
                                           )
                     }
                   </ul>
