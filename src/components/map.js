@@ -70,7 +70,8 @@ export default class Map extends Component {
     render(){
 	this.highlightMarker();
 	this.filterMarkers();
-        const mapsAPICall = `https://maps.googleapis.com/maps/api/js?key=${MAPS_API_KEY}&libraries=places`;
+	//INSERT YOUR OWN MAPS API KEY HERE IF REVIEWING
+	const mapsAPICall = `https://maps.googleapis.com/maps/api/js?key=${MAPS_API_KEY}&libraries=places`;
         return(
             <div className="pure-u-1">
               <Script
