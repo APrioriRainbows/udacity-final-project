@@ -1,3 +1,5 @@
+/*Responsive menu and most styling taken from pure.css -- https://purecss.io/layouts/side-menu/ */
+
 body {
     --menu-width: 275px;
     --anti-menu-width: -275px;
@@ -8,17 +10,14 @@ body {
     color: #72583C;
     font-size: 2em;
     text-align: center;
-    padding: 10px 0;
     background-color: #DEDDDE;
+    padding: 5px 0px;
 }
 
 li {
     font-family: 'Nunito Sans', sans-serif;
 }
 
-#map {
-    height: 600px;
-}
 #map-container{
     width: 100%;
 }
@@ -90,9 +89,7 @@ appears on the left side of the page.
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
-    /*
-    All anchors inside the menu should be styled like this.
-    */
+
     #menu a {
         color: white;
         border: none;
@@ -113,7 +110,7 @@ appears on the left side of the page.
     */
     #menu .pure-menu ul,
     #menu .pure-menu .menu-item-divided {
-        border-top: 1px solid #333;
+        border-top: 1px solid #777;
     }
         /*
         Change color of the anchor links on hover/focus.
@@ -148,10 +145,6 @@ appears on the left side of the page.
 
 /* -- Dynamic Button For Responsive Menu -------------------------------------*/
 
-/*
-The button to open/close the Menu is custom-made and not part of Pure. Here's
-how it works:
-*/
 
 /*
 `.menu-link` represents the responsive menu toggle that shows/hides on
@@ -200,12 +193,24 @@ small screens.
             margin-top: 0.6em;
         }
 
+body, html, #root, #layout, #map-container, #map {
+    height: 100%;
+}
+
+/*this allows the content to take up 100% of the height to make the map responsive. The header is effectively shown because of padding on the top, and margin which pushes the layout back up*/
+#layout > div.pure-u-1 {
+    padding-top: 66px; /* same as header height */
+    box-sizing: border-box;
+    margin-top: -66px;
+    height: 100%;
+}
 
 /* -- Responsive Styles (Media Queries) ------------------------------------- */
 
 /*
-Hides the menu at `48em`, but modify this based on your app's needs.
+Hides the menu at `48em`, and shows the menu button to expand full menu.
 */
+
 @media (min-width: 48em) {
 
     .header,
@@ -221,7 +226,7 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     #menu {
         left: var(--menu-width);
     }
-
+ 
     .menu-link {
         position: fixed;
         left: var(--menu-width);
@@ -233,15 +238,22 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     }
 }
 
-@media (max-width: 48em) {
-    /* Only apply this when the window is small. Otherwise, the following
-    case results in extra padding on the left:
-        * Make the window small.
-        * Tap the menu to trigger the active state.
-        * Make the window large again.
-    */
-    #layout.active {
-        position: relative;
+/* Additional mobile styling */
+
+@media (max-width: 428px) {
+    .App-header {
+        font-size: 1.3em;
+	padding: 5px 0px;
+	box-sizing: border-box;
+	padding-left: 25px;
+    }
+
+    #layout > div.pure-u-1 {
+	padding-top: 48px; /* same as header height */
+	box-sizing: border-box;
+	margin-top: -48px;
+	height: 100%;
         left: var(--menu-width);
     }
+
 }
