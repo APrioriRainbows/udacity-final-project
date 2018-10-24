@@ -40,13 +40,13 @@ export default class Map extends Component {
 	// this will reset markers on render so that they match the filtered location list
 	if (!this.markers) { return }
 	this.markers.forEach(marker => {
-	    marker.hidden = this.props.locations.indexOf(marker.location) == -1;
+	    marker.hidden = this.props.locations.indexOf(marker.location) === -1;
 	    if (marker.hidden) {
 		marker.infowindow.close();
 		marker.setMap(null);
 	    } else {
 		// if it is not on the map, add it to the map
-		!marker.map && marker.setMap(this.map)
+		!marker.map && marker.setMap(this.map);
 	    }
 	});
     }
@@ -63,6 +63,7 @@ export default class Map extends Component {
 		marker.infowindow.close();
             });
             activeMarker.setAnimation(window.google.maps.Animation.BOUNCE);
+            activeLocation.photoURL = activeLocation.photoURL ||'https://static1.squarespace.com/static/5989afe4db29d6b9e128065d/t/59945228be42d66fd571dc25/1502892599674/';
             activeMarker.infowindow.setContent(`${activeLocation.name}<br/>${activeLocation.formatted_address}<br/><img src="${activeLocation.photoURL}" alt=${activeLocation.name}/>`);
             activeMarker.infowindow.open(this.map, activeMarker);
 	}

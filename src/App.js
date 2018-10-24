@@ -11,7 +11,6 @@ class App extends Component {
 	FilteredLocations: [],
         ActiveLocation:''
     }
-
     componentDidMount(){
     	this.setState({AllLocations: ALL_LOCATIONS});
         this.setState({FilteredLocations: ALL_LOCATIONS});
@@ -22,34 +21,30 @@ class App extends Component {
             const v = "&v=20181020";
             const url = `https://api.foursquare.com/v2/venues/${venueId}/photos?limit=1`+qs+v;
             fetch(url).then((response) => response.json()).then(json => {
-                for (let location of this.state.AllLocations) {
-                    if (location.name == fsq.venueName) {
+                for (let location of this.state.AllLocations) {                    
+                    if (location.name === fsq.venueName) {
                         let photo = json.response.photos.items[0] || undefined;
                         if(photo){
                             location.photoURL = `${photo.prefix}200x200${photo.suffix}`;
-                        }else{
-                            location.photoURL = 'https://static1.squarespace.com/static/5989afe4db29d6b9e128065d/t/59945228be42d66fd571dc25/1502892599674/';
                         }
                     }
                 }
             })
                 .catch(err => console.error('Caught error: ', err));
         }
-    }
+     }
     //this function takes in query string and filters down all available locations to match query string.
     //sets a state variable with that array of locations to be used elsewhere
     filterLocations(e){
         e.preventDefault();
-        let val = document.querySelector('input').value.trim().toLowerCase();
-        const AllLocations = this.state.AllLocations;
+        const val = document.querySelector('input').value.trim().toLowerCase();
+        let AllLocations = this.state.AllLocations;
         let FilteredLocations = AllLocations.filter(location => location.name.trim().toLowerCase().includes(val));
         this.setState({FilteredLocations: FilteredLocations});
     }
     //when you click an item it sets a state on the app for ActiveLocation
     setTarget(location){
-        console.log(location);
         const activeLocation = location;
-        console.log(activeLocation);
         this.setState({ActiveLocation:activeLocation});
     }
     toggleSearch(){
@@ -57,7 +52,7 @@ class App extends Component {
         layout.classList.toggle('active');
     }
     render() {
-        const FilteredLocations = this.state.FilteredLocations;
+        let FilteredLocations = this.state.FilteredLocations;
         const ActiveLocation = this.state.ActiveLocation;
         return (
             <div className="App" id="layout">
@@ -75,7 +70,7 @@ class App extends Component {
                   </form>
                   <ul className="pure-menu-list" aria-live="polite" id="locations">
 		    {FilteredLocations.map(location =>
-                                           <li className="pure-menu-item" aria-describedby="locations" key={location.name} tabIndex="0"><a onClick={_e => this.setTarget(location)} className="pure-menu-link"aria-labelledby={location.name}>{location.name}</a></li>
+                                           <li className="pure-menu-item pure-menu-link" aria-describedby="locations" key={location.name} tabIndex="0" onClick={_e => this.setTarget(location)} aria-labelledby={location.name}>{location.name}</li>
                                           )
                     }
                   </ul>
