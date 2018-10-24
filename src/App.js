@@ -47,6 +47,7 @@ class App extends Component {
         const activeLocation = location;
         this.setState({ActiveLocation:activeLocation});
     }
+    //when the user clicks the hamburger menu icon this will toggle the class necessary to hide/show the search panel.
     toggleSearch(){
         const layout = document.getElementById('layout');
         layout.classList.toggle('active');
