@@ -4,8 +4,13 @@ import Script from 'react-load-script';
 import cmarker from '../coffeeMarker.png';
 
 export default class Map extends Component {
-    state = {
-        LocationList: []
+    //display error message if the google script doesn't load.
+    handleScriptError() {
+	let map = document.getElementById('map');
+        let h1 = document.createElement('h1');
+        let text = document.createTextNode('Google Maps Script failed to load! Please reload page and try again!');
+        h1.appendChild(text);
+        map.appendChild(h1);
     }
 
     handleScriptLoad() {
@@ -78,6 +83,7 @@ export default class Map extends Component {
               <Script
             url={mapsAPICall}
             onLoad={this.handleScriptLoad.bind(this)}
+	    onError={this.handleScriptError.bind(this)}
               />
               <div id="map-container" className="pure-u-1">
                 <div id="map" className="pure-u-1">
