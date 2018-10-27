@@ -6,7 +6,7 @@ This is a simple, responsive interactive Google Map which displays data on a han
 
 ## Downloading and Running the Source Code
 
-1. To download the development files, simply clone the repo and run `npm install`. If you don't have npm's package manager, you can get it [here](https://www.npmjs.com/get-npm).
+1. To download the development files, simply clone the repo and run `npm install` If you need npm you can get it here [npm](https://www.npmjs.com/get-npm).
 
 2. Insert your Maps API key in src/map.js, and insert your clientID and clientSecret for foursquare in src/App.js.
 
