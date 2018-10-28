@@ -208,7 +208,7 @@ body, html, #root, #layout, #map-container, #map {
 Hides the menu at `48em`, and shows the menu button to expand full menu.
 */
 
-@media (min-width: 48em) {
+@media screen and (min-width: 48em) {
 
     .header,
     .content {
@@ -237,7 +237,7 @@ Hides the menu at `48em`, and shows the menu button to expand full menu.
 
 /* Additional mobile styling */
 
-@media (max-width: 428px) {
+@media screen and (max-width: 428px) {
     .App-header {
         font-size: 1.3em;
 	padding: 5px 0px;
