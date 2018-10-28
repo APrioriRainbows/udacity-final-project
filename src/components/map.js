@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { MAPS_API_KEY } from '../keys.js';
 import Script from 'react-load-script';
 import cmarker from '../coffeeMarker.png';
-
+//only executes if there's an authentication error
+window.gm_authFailure = () => {
+    alert("Google maps failed to load due to an authentication error. Please check your API key.");
+}
 export default class Map extends Component {
     //display error message if the google script doesn't load.
     handleScriptError() {
