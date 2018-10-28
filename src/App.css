@@ -115,24 +115,24 @@ appears on the left side of the page.
         /*
         Change color of the anchor list items on hover/focus.
        */
-    #menu .pure-menu li:focus {
-        background: #333;     
+    .pure-menu li:focus {
+        background: #777;     
     }
-    #menu .pure-menu li:hover {
-	background: #96816b;
+    .pure-menu li:hover {
+	background: #777;
     }
     
     /*
     This styles the selected menu item `<li>`.
     */
-    #menu .pure-menu-selected,
-    #menu .pure-menu-heading {
+    .pure-menu-selected,
+    .pure-menu-heading {
         background: #1f8dd6;
     }
         /*
         This styles a link within a selected menu item `<li>`.
         */
-        #menu .pure-menu-selected li {
+        .pure-menu-selected li {
             color: #fff;
         }
 

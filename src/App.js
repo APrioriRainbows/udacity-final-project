@@ -14,9 +14,9 @@ class App extends Component {
     }
     componentDidMount(){
     	this.setState({AllLocations: ALL_LOCATIONS});
-        this.setState({FilteredLocations: ALL_LOCATIONS})
+        this.setState({FilteredLocations: ALL_LOCATIONS});
         let errorLog = [];
-	const fetches = []
+	const fetches = [];
         for (let fsq of fourSquareLocationData) {
             const venueId = fsq.venueId;
             //takes in client id and client secret for the foursquare api. PLEASE INSERT YOUR OWN IF REVIEWING.
@@ -79,8 +79,7 @@ class App extends Component {
               <a href="#menu" id="menuLink" className="menu-link" aria-hidden="true" onClick={this.toggleSearch}>
 		<span></span>
 	      </a>
-              <div id="menu" className="">
-                <div className="pure-menu">
+              <aside id="menu" className="pure-menu">
 		  <form className="pure-form" role="search">
 		    <fieldset>
 		      <input role="search" type="text" aria-label="search text" aria-live="polite" className="pure-input-rounded" placeholder="Filter locations" onChange={e => this.filterLocations(e)}/>
@@ -88,12 +87,11 @@ class App extends Component {
                   </form>
                   <ul className="pure-menu-list" aria-live="polite" id="locations">
 		    {FilteredLocations.map(location =>
-                                           <li className="pure-menu-item pure-menu-link" aria-describedby="locations" key={location.name} tabIndex="0" onClick={_e => this.setTarget(location)} aria-labelledby={location.name}>{location.name}</li>
+                                           <li className="pure-menu-item pure-menu-link" aria-describedby="locations" role="link" key={location.name} tabIndex="0" onClick={_e => this.setTarget(location)} aria-labelledby={location.name}>{location.name}</li>
                                           )
                     }
                   </ul>
-                </div>
-              </div>
+              </aside>
             </div>
         );
     }

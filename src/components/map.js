@@ -69,7 +69,7 @@ export default class Map extends Component {
             });
             activeMarker.setAnimation(window.google.maps.Animation.BOUNCE);
             activeLocation.photoURL = activeLocation.photoURL ||'https://static1.squarespace.com/static/5989afe4db29d6b9e128065d/t/59945228be42d66fd571dc25/1502892599674/';
-            activeMarker.infowindow.setContent(`${activeLocation.name}<br/>${activeLocation.formatted_address}<br/><img src="${activeLocation.photoURL}" alt=${activeLocation.name}/>`);
+            activeMarker.infowindow.setContent(`${activeLocation.name}<br/>${activeLocation.formatted_address}<br/><img src="${activeLocation.photoURL}" alt="${activeLocation.name}"/>`);
             activeMarker.infowindow.open(this.map, activeMarker);
 	}
     }
